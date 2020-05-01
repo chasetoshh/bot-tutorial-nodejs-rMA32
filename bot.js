@@ -8,8 +8,8 @@ function respond() {
       botRegex = /^\/cool guy/;  botRegexDL = /^\/team/i;
       botRegexSC = /^\/sched/i;
       botRegexP = /^\/search/i;  botRegexTw = /^\/twitch/i;
-      botRegexSiege = /^\/siege/; botRegexOW = /^\/ratings/; 
-      botRegexRules = /^\/rules/; botRegexATS = /^\/ats/;
+      botRegexSCH = /^\/schedule/; botRegexOW = /^\/ratings/; 
+      botRegexRules = /^\/rules/; botRegexGGF = /^\/ats/;
   var teamAb = ["NE","NO","ARI","PHI","CLE","TEN","OAK","DAL","IND","SEA","CIN","PIT","JAX"
                 ,"BAL","LAC","DEN","MIN","ATL","KC","NYG","GB","DET","HOU","LAR","CHI","CAR",
                 "MIA","BUF","SF","WAS","NYJ","TB"]
@@ -21,20 +21,26 @@ function respond() {
   else if(request.text && botRegexDL.test(request.text)) {
     this.res.writeHead(200);
     //postMessage("http://www.daddyleagues.com/maddenrating?name=&position=all&team="+request.text.substring(5,8));
-    postMessage("http://daddyleagues.com/ats/team/"+request.text.substring(6,10)+"/depthchart");
+    postMessage("http://daddyleagues.com/ggf/team/"+request.text.substring(6,10)+"/depthchart");
     this.res.end();
   } 
   else if(request.text && botRegexSC.test(request.text)) {
     this.res.writeHead(200);
     
-    postMessage("http://daddyleagues.com/ats/team/"+request.text.substring(7,10)+"/schedule");
+    postMessage("http://daddyleagues.com/ggf/team/"+request.text.substring(7,10)+"/schedule");
+    this.res.end();
+  } 
+  else if(request.text && botRegexSCH.test(request.text)) {
+    this.res.writeHead(200);
+    
+    postMessage("http://daddyleagues.com/ggf/schedules");
     this.res.end();
   }
   else if(request.text && botRegexP.test(request.text)) {
     this.res.writeHead(200);
     var req = request.text.substring(8,request.text.length);
     var rep = req.replace(/ /,"+");
-    postMessage("http://daddyleagues.com/ats/players?name="+rep+"&position=all&team=all");
+    postMessage("http://daddyleagues.com/ggf/players?name="+rep+"&position=all&team=all");
     
     this.res.end();
   }  
@@ -51,9 +57,9 @@ function respond() {
     this.res.end();
   } 
   
-      else if(request.text && botRegexATS.test(request.text)) {
+      else if(request.text && botRegexGGF.test(request.text)) {
     this.res.writeHead(200);
-    postMessage("http://www.daddyleagues.com/ats");
+    postMessage("http://www.daddyleagues.com/ggf");
     this.res.end();
   } 
   
